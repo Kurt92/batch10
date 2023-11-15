@@ -53,7 +53,7 @@ public class ChunkBatchJobConfig {
         //log.info("********** This is requestDate : {}" ,requestDate );
 
         return stepBuilderFactory.get("chuckStepConstruct")
-                .<Member, Member> chunk(10)
+                .<Member, Member> chunk(20)
                 .reader(chuckReader())
                 .processor(chuckProcessor())
                 .writer(chuckWriter())
@@ -90,8 +90,17 @@ public class ChunkBatchJobConfig {
     //ItemWriter
     public ItemWriter<Member> chuckWriter() {
         log.info("********** ItemWriter");
-        return ((List<? extends Member> memberList) ->
-                memberRepository.saveAll(memberList));
+
+        return new ItemWriter<Member>() {
+            @Override
+            public void write(List<? extends Member> memberList) throws Exception {
+                memberRepository.saveAll(memberList);
+            }
+        };
+
+
+//        return ((List<? extends Member> memberList) ->
+//                memberRepository.saveAll(memberList));
     }
 
 

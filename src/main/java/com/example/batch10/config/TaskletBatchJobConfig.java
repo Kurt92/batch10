@@ -35,7 +35,7 @@ public class TaskletBatchJobConfig {
     public Job taskletJobConstruct() {
         return jobBuilderFactory.get("taskletJobConstruct")
                 .preventRestart()
-                .start()
+                .start(taskletStepConstruct())
                 .build();
     }
 
@@ -44,7 +44,7 @@ public class TaskletBatchJobConfig {
     @JobScope
     public Step taskletStepConstruct() {
         return stepBuilderFactory.get("taskletStepConstruct")
-                .tasklet()
+                .tasklet(taskletTest())
                 .build();
     }
 
@@ -65,7 +65,7 @@ public class TaskletBatchJobConfig {
         for (int i = 0; i < 100; i++) {
             items.add(i + " test!");
         }
-
+        System.out.println(items);
         return items;
     }
 
