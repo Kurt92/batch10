@@ -1,27 +1,20 @@
-// (1) queryDSL 추가
-buildscript {
-    ext {
-        queryDslVersion = "5.0.0"
-    }
-}
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.17'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"	// (2) queryDSL 추가
+//    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"	// (2) queryDSL 추가
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
 
-java {
-    sourceCompatibility = '17'
-}
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    querydsl.extendsFrom compileClasspath
 }
 
 repositories {
@@ -41,9 +34,17 @@ dependencies {
     testImplementation 'org.springframework.batch:spring-batch-test'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java:8.0.23'
-    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"	// (3) queryDSL 추가
-    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"	// (3) queryDSL 추가
 
+
+//    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"	// (3) queryDSL 추가
+//    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"	// (3) queryDSL 추가
+
+    //----------------------------------------------------------------------------
+    // Querydsl
+    //----------------------------------------------------------------------------
+    implementation group: 'ch.simas.qlrm', name: 'qlrm', version: '1.7.1'
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-apt'
 
     //p6spy 파리미터 로그 라이브러리
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
@@ -54,4 +55,18 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslDir]
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs << '-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated'
 }

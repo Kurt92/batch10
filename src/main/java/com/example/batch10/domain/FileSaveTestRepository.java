@@ -1,4 +1,4 @@
-package com.example.batch10.repository;
+package com.example.batch10.domain;
 
 import com.example.batch10.domain.FileSaveTest;
 import org.springframework.data.jpa.repository.JpaRepository;

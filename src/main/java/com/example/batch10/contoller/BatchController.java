@@ -2,6 +2,7 @@ package com.example.batch10.contoller;
 
 import com.example.batch10.config.ChunkBatchJobConfig;
 import com.example.batch10.config.ChunkFileBatchJobConfig;
+import com.example.batch10.config.EmployBatchJobConfig;
 import com.example.batch10.config.TaskletBatchJobConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
@@ -22,6 +23,7 @@ public class BatchController {
     private final JobLauncher jobLauncher;
     private final ChunkBatchJobConfig chunkBatchJobConfig;
     private final ChunkFileBatchJobConfig chunkFileBatchJobConfig;
+    private final EmployBatchJobConfig employBatchJobConfig;
 
     private final TaskletBatchJobConfig taskletBatchJobConfig;
 
@@ -68,5 +70,21 @@ public class BatchController {
 
 
     }
+
+
+    @PutMapping("/batch10/chunk-jpa-sample")
+    public void chunkJpaTest() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+
+        //Job 파라미터셋
+        JobParameters jobParameters = new JobParametersBuilder()
+                //.addString("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .addString("requestDate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .toJobParameters();
+
+        // Job 실행
+        jobLauncher.run(employBatchJobConfig.employBatchJobConstruct(), jobParameters);
+
+    }
+
 
 }

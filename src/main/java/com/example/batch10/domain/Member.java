@@ -1,5 +1,6 @@
 package com.example.batch10.domain;
 
+import com.example.batch10.constants.MemberStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

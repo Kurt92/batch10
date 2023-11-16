@@ -1,7 +1,7 @@
-package com.example.batch10.repository;
+package com.example.batch10.domain;
 
 import com.example.batch10.domain.Member;
-import com.example.batch10.domain.MemberStatus;
+import com.example.batch10.constants.MemberStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

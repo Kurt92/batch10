@@ -9,7 +9,8 @@ spring:
       enabled: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ssalMuck
+#    url: jdbc:mysql://localhost:3306/ssalMuck
+    url: jdbc:mysql://localhost:3306/employees
     username: root
     password: wjdals12#
 

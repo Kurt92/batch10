@@ -1,8 +1,8 @@
 package com.example.batch10.config;
 
 import com.example.batch10.domain.Member;
-import com.example.batch10.domain.MemberStatus;
-import com.example.batch10.repository.MemberRepository;
+import com.example.batch10.constants.MemberStatus;
+import com.example.batch10.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.*;
