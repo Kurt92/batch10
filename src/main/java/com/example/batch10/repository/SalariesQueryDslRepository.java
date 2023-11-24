@@ -1,22 +1,23 @@
 package com.example.batch10.repository;
 
-import com.example.batch10.domain.Employees;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import static com.example.batch10.domain.QEmployees.employees;
+
 
 @Repository
 @RequiredArgsConstructor
-public class SalariesQueryDslRepository {
+public class SalariesQueryDslRepository implements ISalariesQueryDslRepository{
 
     private final JPAQueryFactory jpaQueryFactory;
 
-//    public Long findCustomerTotalCount(Employees employees) {
-//        Long count = jpaQueryFactory
-//                .select(employees.empNo())  // empNo 필드를 직접 선택
-//                .from(employees)
-//                .fetchCount();
-//        return count;
-//    }
+    public Long findCustomerTotalCount() {
+        Long count = jpaQueryFactory
+                .select(employees.empNo)
+                .from(employees)
+                .fetchCount();
+        return count;
+    }
 }

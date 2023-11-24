@@ -14,13 +14,13 @@ import javax.persistence.PersistenceContext;
 @EnableJpaAuditing
 public class QueryDslConf {
 
-    /* JPA 관련 설정 */
-
 
     /* QueryDsl 관련 설정 */
 
+    @PersistenceContext
+    private EntityManager entityManager;
     @Bean
-    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager) {
+    public JPAQueryFactory queryFactory() {
         return new JPAQueryFactory(entityManager);
     }
 
